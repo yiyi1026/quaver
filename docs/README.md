@@ -1,4 +1,4 @@
-## Quaver with Variations
+## Quaver
 
 ### Background
 
