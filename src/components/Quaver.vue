@@ -59,7 +59,7 @@ export default {
       this.stage.update();
     },
 
-    handleKeydown: function(e) {
+    handleKeyDown: function(e) {
       e = e || window.event;
       if (e.keyCode == '38') {
         // up arrow
@@ -87,7 +87,7 @@ export default {
 
       if (e.keyCode == '38') {
         // up arrow
-        // this.quaver.jumpState = false;
+        this.quaver.jumpState = false;
         console.log("up keyup");
 
       } else if (e.keyCode == '40') {
@@ -98,7 +98,7 @@ export default {
         // left arrow
         console.log("left keyup");
       } else if (e.keyCode == '39') {
-        // this.quaver.walkState = false;
+        this.quaver.walkState = false;
         console.log("right keyup");
       }
     },
@@ -227,8 +227,8 @@ export default {
     createjs.Ticker.setFPS(24);
     // console.log(document);
     // let that = this;
-    window.onkeydown = this.handleKeydown.bind(this);
-    // window.onkeyup = this.handleKeyup.bind(this);
+    window.onkeydown = this.handleKeyDown.bind(this);
+    window.onkeyup = this.handleKeyUp.bind(this);
 
   },
   created: function() {
