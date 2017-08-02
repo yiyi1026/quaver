@@ -1,7 +1,9 @@
 # quaver
 
 > A Vue.js project
-
+// gameover condition
+// background music
+// jump velocity
 ## Build Setup
 
 ``` bash
