@@ -50,7 +50,7 @@ In addition to the webpack entry file, there will be three scripts involved in t
 
 `voice.js`: this script will handle the logic for voice control.  And It will use user microphone input as argument to control the quaver to jump or walk.
 
-`obstacle.vue`: this script will handle the obstacles' data and positioning.
+`obstacle.js`: this script will handle the obstacles' data and positioning.
 
 ### Implementation Timeline
 
