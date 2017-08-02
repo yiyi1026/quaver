@@ -34,7 +34,6 @@ export default {
       // ctx.translate(50,50);
       this.pose = (this.pose + 0.4) % 2;
       quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(pose + 1) + ".png").image;
-      // handleKeydown();
       //   quaver.x = 0;
       //   // stage.fall();
       // }
@@ -178,7 +177,7 @@ export default {
 
     createjs.Ticker.addEventListener("tick", this.tick);
     createjs.Ticker.setFPS(24);
-    window.onkeydown = this.handleKeydown;
+    window.onkeydown = this.handleKeydown.bind(this);
   },
   created: function(){
 
