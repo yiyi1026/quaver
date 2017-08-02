@@ -12,6 +12,7 @@ export default {
   name: 'quaver',
   data() {
     return {
+      ctx: null,
       stage: null,
       rect: null,
       quaver: null,
@@ -26,7 +27,11 @@ export default {
       let quaver = this.quaver;
       let pose = this.pose;
 
-      rect.x -= 5;
+      quaver.x += 5;
+      this.stage.x -= 5;
+      // var c = document.getElementById("myCanvas");
+      // let ctx=c.getContext("2d");
+      // ctx.translate(50,50);
       this.pose = (this.pose + 0.4) % 2;
       quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(pose + 1) + ".png").image;
       //   quaver.x = 0;
@@ -49,10 +54,12 @@ export default {
 
       if (e.keyCode == '38') {
           // up arrow
+          this.quaver.jumpState=true;
           console.log("up")
       }
       else if (e.keyCode == '40') {
           // down arrow
+          this.quaver.fallState = false;
           console.log("down")
       }
       else if (e.keyCode == '37') {
@@ -75,6 +82,13 @@ export default {
       this.stage.addChild(quaver);
       this.stage.addChild(rect);
 
+      if(this.isOnGround()){
+        this.quaver.fallState = false;
+      } else {
+        if(!this.quaver.jumpState)
+          this.quaver.fallState = true;
+      }
+
       if (quaver.fallState) {
         this.fall();
         if (quaver.outState) {
@@ -85,7 +99,6 @@ export default {
       if (quaver.jumpState) {
         this.jump();
       }
-
       // if (walking) {
       //   walk();
       // }
@@ -93,8 +106,17 @@ export default {
 
     fall: function() {
       let quaver = this.quaver;
+      let rect = this.rect;
       quaver.velocity += 0.29 * quaver.gravity;
-      quaver.y += quaver.velocity;
+      
+      let q_rect = new createjs.Rectangle(quaver.x, quaver.y + quaver.velocity, 61, 86);
+      let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
+      
+      if(rect_rect.intersects(q_rect)){
+        quaver.y = rect.rectangle.y - 86;
+      } else{
+        quaver.y += quaver.velocity;
+      }
     },
 
     jump: function() {
@@ -111,17 +133,28 @@ export default {
         quaver.fallState = true;
       }
       quaver.y -= quaver.velocity;
+    },
+
+    isOnGround: function(){
+      let quaver = this.quaver;
+      let rect = this.rect;
+      let q_rect = new createjs.Rectangle(quaver.x, quaver.y, 61, 86);
+      let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
+      
+      return rect_rect.intersects(q_rect);
     }
   },
   mounted: function () {
-    console.log("ready")
     //Create a stage by getting a reference to the canvas
     this.stage = new createjs.Stage('myCanvas');
+    var c = document.getElementById("myCanvas");
+    this.ctx=c.getContext("2d");
     this.pose = 1;
     this.quaver = new createjs.Bitmap("../../static/img/" + this.pose + ".png");
     //Create a Shape DisplayObject.
     this.rect = new createjs.Shape();
-    // rect.graphics.beginFill('333333').drawRect(0, 350, 400, 100);
+    this.rect.rectangle = new createjs.Rectangle(0, 350, 1400, 100);
+    this.rect.graphics.beginFill('333333').drawRect(0, 350, 1400, 150);
     // rect.graphics.beginFill('333333').drawRect(0, 450, 800, 100);
     
     let rect = this.rect;
@@ -140,9 +173,10 @@ export default {
 
     createjs.Ticker.addEventListener("tick", this.tick);
     createjs.Ticker.setFPS(24);
+    window.onkeydown = this.handleKeydown;
   },
   created: function(){
-    console.log("created")
+
   },
 }
 </script>
