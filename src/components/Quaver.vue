@@ -34,6 +34,7 @@ export default {
       // ctx.translate(50,50);
       this.pose = (this.pose + 0.4) % 2;
       quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(pose + 1) + ".png").image;
+      // handleKeydown();
       //   quaver.x = 0;
       //   // stage.fall();
       // }
@@ -49,6 +50,7 @@ export default {
       // }
       this.stage.update();
     },
+
     handleKeydown: function(e){
       e = e || window.event;
 
@@ -71,6 +73,7 @@ export default {
           console.log("right")
       }
     },
+
     game: function() {
       let rect = this.rect;
       let pose = this.pose;
@@ -108,10 +111,10 @@ export default {
       let quaver = this.quaver;
       let rect = this.rect;
       quaver.velocity += 0.29 * quaver.gravity;
-      
+
       let q_rect = new createjs.Rectangle(quaver.x, quaver.y + quaver.velocity, 61, 86);
       let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
-      
+
       if(rect_rect.intersects(q_rect)){
         quaver.y = rect.rectangle.y - 86;
       } else{
@@ -127,10 +130,12 @@ export default {
         quaver.velocity = -quaver.velocity;
         quaver.jumpState = false;
         quaver.fallState = true;
+        quaver.velocity = 25;
       }
       if (quaver.y < 0) {
         quaver.jumpState = false;
         quaver.fallState = true;
+        quaver.velocity = 25;
       }
       quaver.y -= quaver.velocity;
     },
@@ -140,7 +145,7 @@ export default {
       let rect = this.rect;
       let q_rect = new createjs.Rectangle(quaver.x, quaver.y, 61, 86);
       let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
-      
+
       return rect_rect.intersects(q_rect);
     }
   },
@@ -165,7 +170,7 @@ export default {
     quaver.velocity = 25;
     quaver.fallState = false;
     quaver.jumpState = false;
-    quaver.jumpState = true;
+    // quaver.jumpState = true;
     //Add Shape instance to stage display list
 
     this.stage.addChild(quaver);
@@ -177,9 +182,9 @@ export default {
   },
   created: function(){
 
-  },
+  }
 }
 </script>
 
-<style>
+<style scoped>
 </style>
