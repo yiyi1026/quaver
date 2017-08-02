@@ -1,6 +1,6 @@
 <template>
   <div id="quaver">
-    <canvas id="myCanvas" 
+    <canvas id="myCanvas"
     width="800" height="500" >
 		alternate content
 	</canvas>
@@ -78,7 +78,7 @@ export default {
       // if (gameover) {
       //   gameover();
       // }
-      
+
       this.stage.addChild(quaver);
       this.stage.addChild(rect);
 
@@ -156,10 +156,10 @@ export default {
     this.rect.rectangle = new createjs.Rectangle(0, 350, 1400, 100);
     this.rect.graphics.beginFill('333333').drawRect(0, 350, 1400, 150);
     // rect.graphics.beginFill('333333').drawRect(0, 450, 800, 100);
-    
+
     let rect = this.rect;
     let quaver = this.quaver;
-    
+
     quaver.y = 264;
     quaver.gravity = 2;
     quaver.velocity = 25;
@@ -167,7 +167,7 @@ export default {
     quaver.jumpState = false;
     quaver.jumpState = true;
     //Add Shape instance to stage display list
-    
+
     this.stage.addChild(quaver);
     this.stage.addChild(rect);
 
