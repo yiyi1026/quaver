@@ -21,7 +21,7 @@
       quaver = new createjs.Bitmap("./img/" + pose + ".png");
       quaver.y = 264;
       quaver.gravity = 5;
-      quaver.velocity = 0;
+      quaver.velocity = 1;
       //Add Shape instance to stage display list
       stage.addChild(quaver);
       stage.addChild(rect);
@@ -62,6 +62,11 @@
       //   stage.update();
       //   // }
       //
+    }
+
+    function jump(speed) {
+      quaver.velocity -= quaver.gravity;
+      quaver.y -= quaver.gravity;
     }
   </script>
 </head>
