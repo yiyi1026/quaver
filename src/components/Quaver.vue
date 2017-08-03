@@ -8,7 +8,8 @@
 <div id="quaver">
   <canvas id="myCanvas" width="800" height="500">
         alternate content
-    </canvas>
+  </canvas>
+  <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
 </div>
 </template>
 
@@ -23,7 +24,6 @@ export default {
       ctx: null,
       stage: null,
       rects: [],
-      // quaver: null,
       quaver: {
         jumpState: null,
         fallState: null,
@@ -50,16 +50,7 @@ export default {
   watch: {},
   methods: {
     tick: function(event) {
-      // let rect = this.rects[0];
-      // let quaver = this.quaver;
-      // let pose = this.pose;
-      // console.log(AudioAPI.isSupport);
-      // var c = document.getElementById("myCanvas");
-      // let ctx=c.getContext("2d");
-      // ctx.translate(50,50);
-      // quaver.x += 5;
-      // this.stage.x -= 5;
-      // this.pose = (this.pose + 0.4) % 2;
+
       // quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(pose + 1) + ".png").image;
       //   quaver.x = 0;
       //   // stage.fall();
@@ -134,10 +125,6 @@ export default {
       // if (gameover) {
       //   gameover();
       // }
-      // console.log(canvas);
-
-      // this.stage.addChild(quaver);
-      // this.stage.addChild(rect);
 
       if (this.isOnGround()) {
         this.quaver.fallState = false;
@@ -281,6 +268,9 @@ export default {
         this.quaver.walkState = false;
       }
     },
+    adjustSensitivity(newVal) {
+      this.sensitivity = newVal;
+    }
   },
   mounted: function() {
     //Create a stage by getting a reference to the canvas
@@ -292,6 +282,18 @@ export default {
     this.flag = new createjs.Bitmap("../../static/img/victory.png");
     //Create a Shape DisplayObject.
     this.rects = StageData.getObstacleData('stage1');
+
+    //if it has been set it should stay at the set value????
+    this.adjustSensitivity = this.adjustSensitivity.bind(this);
+    let sensitivity = document.getElementById("sensitivity-control");
+    let that = this;
+    sensitivity.addEventListener("input", function() {
+      const newVal = 6000 - this.value;
+      console.log(newVal);
+      that.adjustSensitivity(newVal);
+      console.log(that);
+    });
+    // console.log(this.sensitivity);
 
     let flag = this.flag;
     let rects = this.rects;

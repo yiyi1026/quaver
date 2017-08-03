@@ -1,4 +1,7 @@
 <!-- gameover condition(sort of)
 keyup (done)
 background music
-jump velocity(done) -->
+jump velocity(done)
+start menu
+modal
+-->
