@@ -29,6 +29,8 @@ export default {
         walkState: null
       },
       pose: null,
+      quaver_width: 58,
+      quaver_height: 86,
     }
   },
   computed: {},
@@ -66,19 +68,19 @@ export default {
       if (e.keyCode == '38') {
         // up arrow
         this.quaver.jumpState = true;
-        console.log("up");
+        // console.log("up");
       } else if (e.keyCode == '40') {
         // down arrow
         //why false????
         this.quaver.fallState = false;
-        console.log("down");
+        // console.log("down");
       } else if (e.keyCode == '37') {
         // left arrow
-        console.log("left");
+        // console.log("left");
       } else if (e.keyCode == '39') {
         // right arrow
         this.quaver.walkState = true;
-        console.log("right");
+        // console.log("right");
       }
     },
 
@@ -90,18 +92,18 @@ export default {
       if (e.keyCode == '38') {
         // up arrow
         this.quaver.jumpState = false;
-        console.log("up keyup");
+        // console.log("up keyup");
 
       } else if (e.keyCode == '40') {
         // down arrow
         // this.quaver.fallState = false;
-        console.log("down keyup");
+        // console.log("down keyup");
       } else if (e.keyCode == '37') {
         // left arrow
-        console.log("left keyup");
+        // console.log("left keyup");
       } else if (e.keyCode == '39') {
         this.quaver.walkState = false;
-        console.log("right keyup");
+        // console.log("right keyup");
       }
     },
 
@@ -145,11 +147,12 @@ export default {
       quaver.velocity += 0.29 * quaver.gravity;
       for(let i = 0; i < rects.length; i++) {
         let rect = rects[i];
-        let q_rect = new createjs.Rectangle(quaver.x, quaver.y + quaver.velocity, 61, 86);
+        let q_rect = new createjs.Rectangle(quaver.x, quaver.y + quaver.velocity, this.quaver_width, this.quaver_height);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
 
         if (rect_rect.intersects(q_rect)) {
           quaver.y = rect.rectangle.y - 86;
+          this.fallState = false;
           return ;
         } 
       }
@@ -163,12 +166,30 @@ export default {
     },
 
     walk: function() {
-      this.quaver.x += 5;
-      this.stage.x -= 5;
+      let stage = this.stage;
+      let quaver = this.quaver;
+      let rects = this.rects;
       if(!this.quaver.jumpState && !this.quaver.fallState){
         this.pose = (this.pose + 0.4) % 2;
         this.quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(this.pose + 2) + ".png").image;
       }
+
+      let movement = 5;
+      for(let i = 0; i < rects.length; i++) {
+        let rect = rects[i];
+        let q_rect = new createjs.Rectangle(quaver.x + movement, quaver.y, this.quaver_width, this.quaver_height);
+        let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
+
+        if (rect_rect.intersects(q_rect) ) {
+          if(rect.rectangle.x > quaver.x+this.quaver_width){
+            movement = 0;
+            break ;
+          }
+        } 
+      }
+
+      quaver.x += movement;
+      stage.x -= movement;
     },
 
     jump: function() {
@@ -200,7 +221,7 @@ export default {
       let rects = this.rects;
       for(let i = 0; i < rects.length; i++) {
         let rect = rects[i];
-        let q_rect = new createjs.Rectangle(quaver.x, quaver.y, 61, 86);
+        let q_rect = new createjs.Rectangle(quaver.x, quaver.y, this.quaver_width, this.quaver_height);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
         if(rect_rect.intersects(q_rect)){
           return true;
@@ -210,8 +231,6 @@ export default {
     }
   },
   mounted: function() {
-
-    
     //Create a stage by getting a reference to the canvas
     this.stage = new createjs.Stage('myCanvas');
     var c = document.getElementById("myCanvas");
@@ -225,7 +244,7 @@ export default {
     let quaver = this.quaver;
 
     quaver.x = 100;
-    quaver.y = 264;
+    quaver.y = 164;
     quaver.gravity = 2;
     quaver.velocity = 25;
     quaver.fallState = false;
