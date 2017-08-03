@@ -14,6 +14,7 @@
 
 <script>
 import * as StageData from '../utils/StageData';
+import AudioAPI from '../API/audioAPI';
 
 export default {
   name: 'quaver',
@@ -31,6 +32,7 @@ export default {
       pose: null,
       quaver_width: 58,
       quaver_height: 86,
+      analyser: null,
     }
   },
   computed: {},
@@ -39,7 +41,7 @@ export default {
       // let rect = this.rects[0];
       // let quaver = this.quaver;
       // let pose = this.pose;
-
+      // console.log(AudioAPI.isSupport);
       // var c = document.getElementById("myCanvas");
       // let ctx=c.getContext("2d");
       // ctx.translate(50,50);
@@ -51,9 +53,18 @@ export default {
       //   // stage.fall();
       // }
       // quaver.fallState = true;
+      if (AudioAPI.isSupport) {
+        if (!this.analyser) {
+          AudioAPI.start().then(a => {
+            this.analyser = a;
+            this.game();
+          });
+        } else {
+          this.game();
 
+        }
+      }
 
-      this.game();
       // if (rect.x < -400) {
       //   //   rect.x = 500;
       // }
@@ -76,9 +87,12 @@ export default {
         // console.log("down");
       } else if (e.keyCode == '37') {
         // left arrow
-        // console.log("left");
+        console.log("left");
+        const voiceSize = AudioAPI.getVoiceSize(this.analyser);
+        console.log(voiceSize);
       } else if (e.keyCode == '39') {
         // right arrow
+
         this.quaver.walkState = true;
         // console.log("right");
       }
