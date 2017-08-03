@@ -1,7 +1,19 @@
 <style scoped>
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
 
-
-
+.sensitivity {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
 </style>
 
 <template>
@@ -9,8 +21,9 @@
   <canvas id="myCanvas" width="800" height="500">
         alternate content
   </canvas>
-  <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
-
+  <div class='sensitivity'>
+    <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
+  </div>
 </div>
 </template>
 

@@ -1,7 +1,11 @@
-<!-- gameover condition(sort of)
+<!-- game over condition(sort of)
 keyup (done)
-background music
+background music(done)
 jump velocity(done)
 start menu
 modal
+
+
+
+
 -->
