@@ -34,15 +34,20 @@ export default {
       quaver_width: 58,
       quaver_height: 86,
       analyser: null,
+      voiceSize: 0,
+      sensitivity: 1000,
+      timer: '',
     }
   },
   computed: {
-    quaver_rect: function(){
+    quaver_rect: function() {
       return new createjs.Rectangle(this.quaver.x, this.quaver.y, this.quaver_width, this.quaver_height);
     },
+    voice() {
+      return parseInt(this.voiceSize / this.sensitivity)
+    },
   },
-  watch: {
-  },
+  watch: {},
   methods: {
     tick: function(event) {
       // let rect = this.rects[0];
@@ -60,17 +65,7 @@ export default {
       //   // stage.fall();
       // }
       // quaver.fallState = true;
-      if (AudioAPI.isSupport) {
-        if (!this.analyser) {
-          AudioAPI.start().then(a => {
-            this.analyser = a;
-            this.game();
-          });
-        } else {
-          this.game();
-
-        }
-      }
+      this.game();
 
       // if (rect.x < -400) {
       //   //   rect.x = 500;
@@ -132,6 +127,10 @@ export default {
       // let rect = this.rects[0];
       let pose = this.pose;
       let quaver = this.quaver;
+
+      if (this.analyser) {
+        this.startGetVoiceSize();
+      }
       // if (gameover) {
       //   gameover();
       // }
@@ -163,8 +162,7 @@ export default {
       if (quaver.y >= 600) {
         this.gameOver();
       }
-      console.log(this.quaver_rect.contains(this.flag.x, this.flag.y))
-      if (this.quaver_rect.contains(this.flag.x + 25, this.flag.y+25)){
+      if (this.quaver_rect.contains(this.flag.x + 25, this.flag.y + 25)) {
         this.gameWin();
       }
     },
@@ -185,7 +183,7 @@ export default {
         }
       }
       quaver.y += quaver.velocity;
-      
+
 
     },
 
@@ -240,6 +238,7 @@ export default {
       //looks super weird here!!!!
       this.quaver.y = 250;
     },
+
     isOnGround: function() {
       let quaver = this.quaver;
       let rects = this.rects;
@@ -252,17 +251,36 @@ export default {
         }
       }
       return false;
-    }, 
-    gameOver: function(){
+    },
+    gameOver: function() {
       alert("GAME OVER");
       document.location.reload();
       this.resetPosition();
-    }, 
-    gameWin: function(){
+    },
+    gameWin: function() {
       alert("YOU WIN!!");
       document.location.reload();
       this.resetPosition();
-    }
+    },
+    startGetVoiceSize() {
+      this.timer = setTimeout(() => {
+        // console.log(this.analyser);
+        const voiceSize = AudioAPI.getVoiceSize(this.analyser)
+        this.voiceSize = voiceSize
+        this.voiceChanged()
+        this.startGetVoiceSize()
+      }, 100)
+    },
+    voiceChanged() {
+      if (this.voice > 5) {
+        this.quaver.walkState = true;
+        if (this.voice > 20) {
+          this.quaver.jumpState = true;
+        }
+      } else if (this.voice < 1) {
+        this.quaver.walkState = false;
+      }
+    },
   },
   mounted: function() {
     //Create a stage by getting a reference to the canvas
@@ -306,13 +324,21 @@ export default {
     // let that = this;
     window.onkeydown = this.handleKeyDown.bind(this);
     window.onkeyup = this.handleKeyUp.bind(this);
-
+    // this.startGetVoiceSize();
   },
   beforeCreate() {
 
   },
   created: function() {
 
+    if (AudioAPI.isSupport) {
+      if (!this.analyser) {
+        AudioAPI.start().then(a => {
+          this.analyser = a;
+        });
+
+      }
+    }
   }
 }
 </script>
