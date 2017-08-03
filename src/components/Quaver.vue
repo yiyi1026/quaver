@@ -143,15 +143,15 @@ export default {
       let quaver = this.quaver;
       let rects = this.rects;
       quaver.velocity += 0.29 * quaver.gravity;
-      for(let i = 0; i < rects.length; i++) {
+      for (let i = 0; i < rects.length; i++) {
         let rect = rects[i];
         let q_rect = new createjs.Rectangle(quaver.x, quaver.y + quaver.velocity, 61, 86);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
 
         if (rect_rect.intersects(q_rect)) {
           quaver.y = rect.rectangle.y - 86;
-          return ;
-        } 
+          return;
+        }
       }
       quaver.y += quaver.velocity;
       if (quaver.y >= 600) {
@@ -165,7 +165,7 @@ export default {
     walk: function() {
       this.quaver.x += 5;
       this.stage.x -= 5;
-      if(!this.quaver.jumpState && !this.quaver.fallState){
+      if (!this.quaver.jumpState && !this.quaver.fallState) {
         this.pose = (this.pose + 0.4) % 2;
         this.quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(this.pose + 2) + ".png").image;
       }
@@ -198,11 +198,11 @@ export default {
     isOnGround: function() {
       let quaver = this.quaver;
       let rects = this.rects;
-      for(let i = 0; i < rects.length; i++) {
+      for (let i = 0; i < rects.length; i++) {
         let rect = rects[i];
         let q_rect = new createjs.Rectangle(quaver.x, quaver.y, 61, 86);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
-        if(rect_rect.intersects(q_rect)){
+        if (rect_rect.intersects(q_rect)) {
           return true;
         }
       }
@@ -211,7 +211,7 @@ export default {
   },
   mounted: function() {
 
-    
+
     //Create a stage by getting a reference to the canvas
     this.stage = new createjs.Stage('myCanvas');
     var c = document.getElementById("myCanvas");
@@ -234,7 +234,7 @@ export default {
     //Add Shape instance to stage display list
 
     this.stage.addChild(quaver);
-    rects.forEach( (rect) =>{
+    rects.forEach((rect) => {
       this.stage.addChild(rect);
     })
 
@@ -246,7 +246,8 @@ export default {
     window.onkeyup = this.handleKeyUp.bind(this);
 
   },
-  beforeCreate(){
+  beforeCreate() {
+
   },
   created: function() {
 
