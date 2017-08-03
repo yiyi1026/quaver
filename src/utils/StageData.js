@@ -7,9 +7,9 @@ const stageData = {
             [1200, 350, 100, 500],
             [1400, 300, 300, 500],
             [1800, 350, 300, 500],
-            [2200, 400, 100, 500],
+            [2200, 250, 200, 500],
             ],
-        end: [2250,350]
+        end: [2300,148]
     },
     stage2: {
         obstacle: [
@@ -37,5 +37,9 @@ export const getObstacleData = (lvl)  => {
         return r;
     }
     )
+}
 
+export const getFlagData = (lvl)  => {
+    let stage = stageData[lvl];
+    return stage.end;
 }
