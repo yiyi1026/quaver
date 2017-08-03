@@ -28,12 +28,19 @@ export default {
         fallState: null,
         walkState: null
       },
+      flag: null,
       pose: null,
       quaver_width: 58,
       quaver_height: 86,
     }
   },
-  computed: {},
+  computed: {
+    quaver_rect: function(){
+      return new createjs.Rectangle(this.quaver.x, this.quaver.y, this.quaver_width, this.quaver_height);
+    },
+  },
+  watch: {
+  },
   methods: {
     tick: function(event) {
       // let rect = this.rects[0];
@@ -139,6 +146,13 @@ export default {
       if (quaver.walkState) {
         this.walk();
       }
+      if (quaver.y >= 600) {
+        this.gameOver();
+      }
+      console.log(this.quaver_rect.contains(this.flag.x, this.flag.y))
+      if (this.quaver_rect.contains(this.flag.x + 25, this.flag.y+25)){
+        this.gameWin();
+      }
     },
 
     fall: function() {
@@ -157,11 +171,7 @@ export default {
         } 
       }
       quaver.y += quaver.velocity;
-      if (quaver.y >= 600) {
-        alert("GAME OVER");
-        this.resetPosition();
-        document.location.reload();
-      }
+      
 
     },
 
@@ -228,6 +238,16 @@ export default {
         }
       }
       return false;
+    }, 
+    gameOver: function(){
+      alert("GAME OVER");
+      document.location.reload();
+      this.resetPosition();
+    }, 
+    gameWin: function(){
+      alert("YOU WIN!!");
+      document.location.reload();
+      this.resetPosition();
     }
   },
   mounted: function() {
@@ -237,9 +257,11 @@ export default {
     this.ctx = c.getContext("2d");
     this.pose = 1;
     this.quaver = new createjs.Bitmap("../../static/img/" + this.pose + ".png");
+    this.flag = new createjs.Bitmap("../../static/img/victory.png");
     //Create a Shape DisplayObject.
     this.rects = StageData.getObstacleData('stage1');
 
+    let flag = this.flag;
     let rects = this.rects;
     let quaver = this.quaver;
 
@@ -252,10 +274,17 @@ export default {
     // quaver.jumpState = true;
     //Add Shape instance to stage display list
 
+    let flag_pos = StageData.getFlagData('stage1')
+    flag.x = flag_pos[0];
+    flag.y = flag_pos[1];
+    flag.scaleX = 0.2;
+    flag.scaleY = 0.2;
+
     this.stage.addChild(quaver);
     rects.forEach( (rect) =>{
       this.stage.addChild(rect);
     })
+    this.stage.addChild(flag);
 
     createjs.Ticker.addEventListener("tick", this.tick);
     createjs.Ticker.setFPS(24);
