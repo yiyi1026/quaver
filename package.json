@@ -10,9 +10,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "createjs-easeljs": "^0.8.2",
+    "createjs-soundjs": "^0.6.2",
     "vue": "^2.3.3",
-    "vue-router": "^2.6.0",
-    "createjs-easeljs": "^0.8.2"
+    "vue-router": "^2.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

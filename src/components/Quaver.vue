@@ -10,6 +10,7 @@
         alternate content
   </canvas>
   <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
+
 </div>
 </template>
 

@@ -5,11 +5,34 @@
   <meta charset="utf-8">
   <title>quaver</title>
   <script src="/static/js/easeljs-0.8.2.min.js"></script>
+  <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
+  <script>
+    // createjs.FlashAudioPlugin.swfPath = "../src/soundjs/flashaudio";
+    // createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
+    // createjs.Sound.alternateExtensions = ["mp3"];
+    createjs.Sound.on("fileload", this.loadHandler, this);
+    createjs.Sound.registerSound("static/bgm/theme.mp3", "theme");
+
+    function loadHandler(event) {
+      // This is fired for each sound that is registered.
+      var instance = createjs.Sound.play("theme"); // play using id.  Could also use full source path or event.src.
+      instance.on("complete", this.handleComplete, this);
+      instance.volume = 0.5;
+    }
+
+    function mute() {
+      createjs.Sound.muted = !createjs.Sound.muted;
+    }
+  </script>
 </head>
 
-<body>
+<body onload='loadSound();'>
   <div id="app"></div>
+  <!--click twice two sounds -->
+  <button onclick="mute();" class="mute">Mute</button>
+  <!-- <button onclick="playSound();" class="playSound">Play Sound</button> -->
   <!-- built files will be auto injected -->
+
 </body>
 
 </html>
