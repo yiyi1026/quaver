@@ -159,7 +159,7 @@ export default {
       let quaver = this.quaver;
       let rects = this.rects;
       quaver.velocity += 0.29 * quaver.gravity;
-      for(let i = 0; i < rects.length; i++) {
+      for (let i = 0; i < rects.length; i++) {
         let rect = rects[i];
         let q_rect = new createjs.Rectangle(quaver.x, quaver.y + quaver.velocity, this.quaver_width, this.quaver_height);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
@@ -167,8 +167,8 @@ export default {
         if (rect_rect.intersects(q_rect)) {
           quaver.y = rect.rectangle.y - 86;
           this.fallState = false;
-          return ;
-        } 
+          return;
+        }
       }
       quaver.y += quaver.velocity;
       
@@ -179,23 +179,23 @@ export default {
       let stage = this.stage;
       let quaver = this.quaver;
       let rects = this.rects;
-      if(!this.quaver.jumpState && !this.quaver.fallState){
+      if (!this.quaver.jumpState && !this.quaver.fallState) {
         this.pose = (this.pose + 0.4) % 2;
         this.quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(this.pose + 2) + ".png").image;
       }
 
       let movement = 5;
-      for(let i = 0; i < rects.length; i++) {
+      for (let i = 0; i < rects.length; i++) {
         let rect = rects[i];
         let q_rect = new createjs.Rectangle(quaver.x + movement, quaver.y, this.quaver_width, this.quaver_height);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
 
-        if (rect_rect.intersects(q_rect) ) {
-          if(rect.rectangle.x > quaver.x+this.quaver_width){
+        if (rect_rect.intersects(q_rect)) {
+          if (rect.rectangle.x > quaver.x + this.quaver_width) {
             movement = 0;
-            break ;
+            break;
           }
-        } 
+        }
       }
 
       quaver.x += movement;
@@ -229,11 +229,11 @@ export default {
     isOnGround: function() {
       let quaver = this.quaver;
       let rects = this.rects;
-      for(let i = 0; i < rects.length; i++) {
+      for (let i = 0; i < rects.length; i++) {
         let rect = rects[i];
         let q_rect = new createjs.Rectangle(quaver.x, quaver.y, this.quaver_width, this.quaver_height);
         let rect_rect = new createjs.Rectangle(rect.rectangle.x, rect.rectangle.y, rect.rectangle.width, rect.rectangle.height);
-        if(rect_rect.intersects(q_rect)){
+        if (rect_rect.intersects(q_rect)) {
           return true;
         }
       }
@@ -281,7 +281,7 @@ export default {
     flag.scaleY = 0.2;
 
     this.stage.addChild(quaver);
-    rects.forEach( (rect) =>{
+    rects.forEach((rect) => {
       this.stage.addChild(rect);
     })
     this.stage.addChild(flag);
@@ -294,7 +294,8 @@ export default {
     window.onkeyup = this.handleKeyUp.bind(this);
 
   },
-  beforeCreate(){
+  beforeCreate() {
+
   },
   created: function() {
 
