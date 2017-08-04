@@ -10,15 +10,7 @@
     // createjs.FlashAudioPlugin.swfPath = "../src/soundjs/flashaudio";
     // createjs.Sound.registerPlugins([createjs.WebAudioPlugin]);
     // createjs.Sound.alternateExtensions = ["mp3"];
-    createjs.Sound.on("fileload", this.loadHandler, this);
-    createjs.Sound.registerSound("static/bgm/theme.mp3", "theme");
 
-    function loadHandler(event) {
-      // This is fired for each sound that is registered.
-      var instance = createjs.Sound.play("theme"); // play using id.  Could also use full source path or event.src.
-      instance.on("complete", this.handleComplete, this);
-      instance.volume = 0.5;
-    }
 
     // function mute() {
     //   createjs.Sound.muted = !createjs.Sound.muted;

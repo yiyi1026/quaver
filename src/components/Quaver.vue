@@ -23,12 +23,14 @@ canvas {
   background-color: #333333;
   color: #f3f3f3;
   width: 135px;
+<<<<<<< HEAD
   /*display: block;*/
+=======
+>>>>>>> e92fe3219368dc6d29c99fbd6d45f3dc50677dc2
   margin-left: 59%;
-  /*margin-right: 10px;*/
-  padding-left: 10px;
   margin-top: 1%;
   margin-bottom: 10px;
+  padding-left: 10px;
   font-size: 20px;
 }
 </style>
@@ -49,7 +51,22 @@ canvas {
   </div>
 </div>
 </template>
+<script type="text/javascript">
+let globalMute = false;
+if (globalMute) {
 
+} else {
+  createjs.Sound.on("fileload", this.loadHandler, this);
+  createjs.Sound.registerSound("static/bgm/theme.mp3", "theme");
+
+  function loadHandler(event) {
+    // This is fired for each sound that is registered.
+    var instance = createjs.Sound.play("theme"); // play using id.  Could also use full source path or event.src.
+    instance.on("complete", this.handleComplete, this);
+    instance.volume = 0.2;
+  }
+}
+</script>
 <script>
 import * as StageData from '../utils/StageData';
 import AudioAPI from '../API/audioAPI';
@@ -61,6 +78,7 @@ export default {
       ctx: null,
       stage: null,
       rects: [],
+      // soundMute: (globalMute ? globalMute : false),
       quaver: {
         jumpState: null,
         fallState: null,
@@ -92,6 +110,7 @@ export default {
   methods: {
     mute: function() {
       createjs.Sound.muted = !createjs.Sound.muted;
+      globalMute = true;
     },
     tick: function(event) {
 
@@ -288,6 +307,7 @@ export default {
     gameOver: function() {
       alert("GAME OVER");
       document.location.reload();
+      this.soundMute = true;
       this.resetPosition();
     },
     gameWin: function() {
