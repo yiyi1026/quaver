@@ -199,8 +199,8 @@ export default {
         // console.log("up");
       } else if (e.keyCode == '40') {
         // down arrow
-        // console.log('go game over')
-        // this.gameOver();
+        console.log('go game over')
+        this.gameOver();
         // console.log("down");
       } else if (e.keyCode == '37') {
         // left arrow
@@ -361,56 +361,65 @@ export default {
       createjs.Sound.muted = true;
       
       let closing = new createjs.Shape();
+
+      let r = new createjs.Shape();
+
+
+      let x = this.quaver.x - 100
       
-      let stroke;
+      let cnt;
       let stage = this.stage;
       let goInterval = setInterval(function(){ 
-        if(!stroke){
-          stroke = 1;
-          closing.graphics.beginStroke("#333333");
+        if(!cnt){
+          cnt = 1;
+          // closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
+          closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
           stage.addChild(closing);
         }
-        stroke += 1;
-        closing.graphics.setStrokeStyle(Math.pow(stroke,1.5));
-        closing.snapToPixel = true;
-        closing.graphics.drawCircle(400,250,500);
-        if(stroke > 100){
+        cnt += 1;
+        console.log(closing.graphics)
+        stage.x -= 40;
+        if(cnt > 20){
           clearInterval(goInterval);
           let text = new createjs.Text("GAME OVER", "40px Arial", "#f3f3f3");
-          text.x = 250;
+          text.x = x + 1050;
           text.y = 200;
           text.textBaseline = "alphabetic";
           stage.addChild(text);
         }
-      }, 10);
+      }, 50);
     },
     gameWin: function() {
-      
       createjs.Sound.muted = true;
       
       let closing = new createjs.Shape();
+
+      let r = new createjs.Shape();
+
+
+      let x = this.quaver.x - 100
       
-      let stroke;
+      let cnt;
       let stage = this.stage;
       let goInterval = setInterval(function(){ 
-        if(!stroke){
-          stroke = 1;
-          closing.graphics.beginStroke("#333333");
+        if(!cnt){
+          cnt = 1;
+          // closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
+          closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
           stage.addChild(closing);
         }
-        stroke += 1;
-        closing.graphics.setStrokeStyle(Math.pow(stroke,1.5));
-        closing.snapToPixel = true;
-        closing.graphics.drawCircle(400,250,500);
-        if(stroke > 100){
+        cnt += 1;
+        console.log(closing.graphics)
+        stage.x -= 40;
+        if(cnt > 20){
           clearInterval(goInterval);
-          let text = new createjs.Text("YOU WIN", "40px Arial", "#f3f3f3");
-          text.x = 250;
+          let text = new createjs.Text("YOU WIN!", "40px Arial", "#f3f3f3");
+          text.x = x + 1050;
           text.y = 200;
           text.textBaseline = "alphabetic";
           stage.addChild(text);
         }
-      }, 10);
+      }, 50);
     },
     startGetVoiceSize() {
       this.timer = setTimeout(() => {
