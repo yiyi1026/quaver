@@ -310,7 +310,7 @@ export default {
       let rects = this.rects;
       if (!this.quaver.jumpState && !this.quaver.fallState) {
         this.pose = (this.pose + 0.4) % 2;
-        this.quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(this.pose + 2) + ".png").image;
+        this.quaver.image = new createjs.Bitmap("static/img/" + Math.floor(this.pose + 2) + ".png").image;
       }
 
       let movement = 5;
@@ -336,7 +336,7 @@ export default {
       quaver.fallState = false;
       quaver.velocity -= quaver.gravity;
       this.pose = (this.pose + 0.4) % 2;
-      this.quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(this.pose + 4) + ".png").image;
+      this.quaver.image = new createjs.Bitmap("static/img/" + Math.floor(this.pose + 4) + ".png").image;
       if (quaver.velocity < 0) {
         quaver.velocity = -quaver.velocity;
         quaver.jumpState = false;
@@ -470,8 +470,8 @@ export default {
     var c = document.getElementById("myCanvas");
     this.ctx = c.getContext("2d");
     this.pose = 1;
-    this.quaver = new createjs.Bitmap("../../static/img/" + this.pose + ".png");
-    this.flag = new createjs.Bitmap("../../static/img/victory.png");
+    this.quaver = new createjs.Bitmap("static/img/" + this.pose + ".png");
+    this.flag = new createjs.Bitmap("static/img/victory.png");
     //Create a Shape DisplayObject.
     this.rects = StageData.getObstacleData(this.stageLevel);
 
@@ -537,7 +537,7 @@ export default {
       // console.log(this);
       // this.loadHandler = this.loadHandler.bind(this)
       createjs.Sound.on("fileload", loadHandler, this);
-      createjs.Sound.registerSound("../../static/bgm/theme.mp3", "theme");
+      createjs.Sound.registerSound("static/bgm/theme.mp3", "theme");
       createjs.Sound.muted = false;
 
       function loadHandler(event) {
