@@ -178,8 +178,7 @@ export default {
       //   // stage.fall();
       // }
       // quaver.fallState = true;
-      this.currentTime = new Date();
-      this.timeSpend = this.currentTime - this.startTime;
+
       this.game();
 
       // if (rect.x < -400) {
@@ -236,8 +235,11 @@ export default {
     game: function() {
       // let rect = this.rects[0];
       if (this.gameStop) {
+        this.timeSpend = 0;
         return;
       }
+      this.currentTime = new Date();
+      this.timeSpend = this.currentTime - this.startTime;
       let pose = this.pose;
       let quaver = this.quaver;
 
