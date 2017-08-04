@@ -25,7 +25,7 @@ export default {
   getVoiceSize (analyser) {
     const dataArray = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(dataArray);
-    const data = dataArray.slice(100, 10000);
+    const data = dataArray.slice(100, 5000);
     const sum = data.reduce((a, b) => a + b);
     return sum;
   }

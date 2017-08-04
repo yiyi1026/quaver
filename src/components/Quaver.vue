@@ -10,7 +10,19 @@ canvas {
   background-color: #f3f3f3;
 }
 
-.sensitivity {
+.bottom-menu {
+  width: 800px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  background-color: #000000;
+}
+
+.menu {
+  padding-top: 20px;
   padding-left: 0;
   padding-right: 0;
   margin-left: auto;
@@ -29,6 +41,53 @@ canvas {
   padding-left: 10px;
   font-size: 20px;
 }
+
+.menuButton {
+  background-color: #bcbcbc;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 0px solid #c2c2c2;
+  display: inline-block;
+  cursor: pointer;
+  color: #333333;
+  font-family: Trebuchet MS;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 8px 15px;
+  margin: 20px;
+  text-decoration: none;
+}
+
+.menuButton:hover {
+  background-color: #666666;
+  /* background-color:#d3d3d3; */
+}
+
+.menuButton:active {
+  position: relative;
+  top: 2px;
+}
+
+.menuButton:focus {
+  outline: 0;
+}
+
+.sensitivity {
+  color: #bbbbbb;
+}
+
+.sensitivity {
+  margin-left: 10%;
+}
+
+#sensitivity-control {
+  outline: 0;
+}
+
+#sensitivity-control:focus {
+  outline: 0;
+}
 </style>
 
 <template>
@@ -39,12 +98,14 @@ canvas {
   <canvas id="myCanvas" width="800" height="500">
         alternate content
   </canvas>
-  <div class='menu'>
-    <div class='sensitivity'>
-      <p>Voice Sensitivity</p>
-      Low<input id="sensitivity-control" type="range" min="-3000" max="5000" value="-3000" step="10"></input>High
-    </div>
-    <button v-on:click="mute">Mute</button>
+  <div class='bottom-menu'>
+    <span class='menu'>
+      <button class='menuButton' v-on:click="mute">Mute</button>
+      <span class='sensitivity'>
+        <span>Voice Sensitivity</span>
+    <input id="sensitivity-control" type="range" min="1000" max="2000" value="this.sensitivity" step="10"></input>
+    </span>
+    </span>
   </div>
 </div>
 </template>
@@ -80,7 +141,7 @@ export default {
       quaver_height: 86,
       analyser: null,
       voiceSize: 0,
-      sensitivity: 1000,
+      sensitivity: 1500,
       timer: '',
       startTime: new Date(),
       currentTime: new Date(),
@@ -91,9 +152,9 @@ export default {
     quaver_rect: function() {
       return new createjs.Rectangle(this.quaver.x, this.quaver.y, this.quaver_width, this.quaver_height);
     },
-    voice() {
-      return parseInt(this.voiceSize / this.sensitivity)
-    },
+    // voice() {
+    //   return parseInt(this.voiceSize / this.sensitivity)
+    // },
   },
   watch: {},
   methods: {
@@ -288,7 +349,7 @@ export default {
       return false;
     },
     gameOver: function() {
-      this.mute();
+      createjs.Sound.muted = true;
       alert("GAME OVER");
       document.location.reload();
       // this.soundMute = true;
@@ -309,12 +370,15 @@ export default {
       }, 100)
     },
     voiceChanged() {
-      if (this.voice > 5) {
+      // console.log(this.voice);
+      let voice = parseInt(this.voiceSize / this.sensitivity)
+      if (voice > 15) {
         this.quaver.walkState = true;
-        if (this.voice > 20) {
+        if (voice > 50) {
           this.quaver.jumpState = true;
         }
-      } else if (this.voice < 1) {
+      } else
+      if (voice < 5) {
         this.quaver.walkState = false;
       }
     },
@@ -338,10 +402,11 @@ export default {
     let sensitivity = document.getElementById("sensitivity-control");
     let that = this;
     sensitivity.addEventListener("input", function() {
-      const newVal = 7000 - this.value;
-      console.log(newVal);
-      that.adjustSensitivity(newVal * 1.5);
-      console.log(that);
+      // console.log(this.value);
+      const newVal = 3000 - this.value;
+      // console.log(newVal);
+      that.adjustSensitivity(newVal);
+      // console.log(that);
     });
     // console.log(this.sensitivity);
 
