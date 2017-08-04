@@ -423,7 +423,7 @@ export default {
     // quaver.jumpState = true;
     //Add Shape instance to stage display list
 
-    let flag_pos = StageData.getFlagData('stage1')
+    let flag_pos = StageData.getFlagData(this.stageLevel)
     flag.x = flag_pos[0];
     flag.y = flag_pos[1];
     flag.scaleX = 0.2;
