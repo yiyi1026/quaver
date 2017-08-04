@@ -10,7 +10,19 @@ canvas {
   background-color: #f3f3f3;
 }
 
-.sensitivity {
+.bottom-menu{
+  width: 800px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  background-color: #000000; 
+}
+
+.menu {
+  padding-top: 20px;
   padding-left: 0;
   padding-right: 0;
   margin-left: auto;
@@ -23,16 +35,53 @@ canvas {
   background-color: #333333;
   color: #f3f3f3;
   width: 135px;
-<<<<<<< HEAD
-  /*display: block;*/
-=======
->>>>>>> e92fe3219368dc6d29c99fbd6d45f3dc50677dc2
   margin-left: 59%;
   margin-top: 1%;
   margin-bottom: 10px;
   padding-left: 10px;
   font-size: 20px;
 }
+
+.menuButton {
+	background-color:#bcbcbc;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:0px solid #c2c2c2;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Trebuchet MS;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 15px;
+  margin: 20px;
+	text-decoration:none;
+}
+.menuButton:hover {
+	background-color:#666666;
+	/* background-color:#d3d3d3; */
+}
+.menuButton:active {
+	position:relative;
+	top:2px;
+}
+.menuButton:focus {
+	outline: 0;
+}
+.sensitivity{
+  color: #bbbbbb;
+}
+.sensitivity{
+  margin-left: 10%;
+}
+#sensitivity-control{
+  outline: 0;
+}
+#sensitivity-control:focus{
+  outline: 0;
+}
+
 </style>
 
 <template>
@@ -43,11 +92,14 @@ canvas {
   <canvas id="myCanvas" width="800" height="500">
         alternate content
   </canvas>
-  <div class='menu'>
-    <div class='sensitivity'>
-      <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
-    </div>
-    <button v-on:click="mute">Mute</button>
+  <div class='bottom-menu'>
+    <span class='menu'>
+      <button class='menuButton' v-on:click="mute">Mute</button>
+      <span class='sensitivity'>
+        <span>Voice Sensitivity</span>
+        <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10"></input>
+      </span>
+    </span>
   </div>
 </div>
 </template>
