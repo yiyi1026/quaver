@@ -33,7 +33,7 @@ export const getObstacleData = (lvl)  => {
     return obstacle.map( (rect) => {
         let r = new createjs.Shape();
         r.rectangle = new createjs.Rectangle(...rect);
-        r.graphics.beginFill('333333').drawRect(...rect);
+        r.graphics.beginFill('#333333').drawRect(...rect);
         return r;
     }
     )

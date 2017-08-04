@@ -18,7 +18,7 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   display: block;
-  background-color: #000000;
+  background-color: #333333;
 }
 
 .menu {
@@ -74,7 +74,9 @@ canvas {
 }
 
 .sensitivity {
+  justify-content: space-between;
   color: #bbbbbb;
+  margin-right: 250px;
 }
 
 .sensitivity {
@@ -88,6 +90,9 @@ canvas {
 #sensitivity-control:focus {
   outline: 0;
 }
+
+.backButton{
+}
 </style>
 
 <template>
@@ -99,13 +104,14 @@ canvas {
         alternate content
   </canvas>
   <div class='bottom-menu'>
-    <span class='menu'>
+    <div class='menu'>
       <button class='menuButton' v-on:click="mute">Mute</button>
       <span class='sensitivity'>
         <span>Voice Sensitivity</span>
-    <input id="sensitivity-control" type="range" min="1000" max="2000" value="this.sensitivity" step="10"></input>
-    </span>
-    </span>
+        <input id="sensitivity-control" type="range" min="1000" max="2000" value="this.sensitivity" step="10"></input>
+      </span>
+      <button class='menuButton' v-on:click='handleBack' >Back</button>
+    </div>
   </div>
 </div>
 </template>
@@ -162,6 +168,9 @@ export default {
       createjs.Sound.muted = !createjs.Sound.muted;
       // globalMute = true;
     },
+    handleBack: function() {
+      window.location = '/#'
+    },
     tick: function(event) {
 
       // quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(pose + 1) + ".png").image;
@@ -190,8 +199,8 @@ export default {
         // console.log("up");
       } else if (e.keyCode == '40') {
         // down arrow
-        //why false????
-        this.quaver.fallState = false;
+        // console.log('go game over')
+        // this.gameOver();
         // console.log("down");
       } else if (e.keyCode == '37') {
         // left arrow
@@ -350,15 +359,58 @@ export default {
     },
     gameOver: function() {
       createjs.Sound.muted = true;
-      alert("GAME OVER");
-      document.location.reload();
-      // this.soundMute = true;
-      this.resetPosition();
+      
+      let closing = new createjs.Shape();
+      
+      let stroke;
+      let stage = this.stage;
+      let goInterval = setInterval(function(){ 
+        if(!stroke){
+          stroke = 1;
+          closing.graphics.beginStroke("#333333");
+          stage.addChild(closing);
+        }
+        stroke += 1;
+        closing.graphics.setStrokeStyle(Math.pow(stroke,1.5));
+        closing.snapToPixel = true;
+        closing.graphics.drawCircle(400,250,500);
+        if(stroke > 100){
+          clearInterval(goInterval);
+          let text = new createjs.Text("GAME OVER", "40px Arial", "#f3f3f3");
+          text.x = 250;
+          text.y = 200;
+          text.textBaseline = "alphabetic";
+          stage.addChild(text);
+        }
+      }, 10);
     },
     gameWin: function() {
-      alert("YOU WIN!!");
-      document.location.reload();
-      this.resetPosition();
+      
+      createjs.Sound.muted = true;
+      
+      let closing = new createjs.Shape();
+      
+      let stroke;
+      let stage = this.stage;
+      let goInterval = setInterval(function(){ 
+        if(!stroke){
+          stroke = 1;
+          closing.graphics.beginStroke("#333333");
+          stage.addChild(closing);
+        }
+        stroke += 1;
+        closing.graphics.setStrokeStyle(Math.pow(stroke,1.5));
+        closing.snapToPixel = true;
+        closing.graphics.drawCircle(400,250,500);
+        if(stroke > 100){
+          clearInterval(goInterval);
+          let text = new createjs.Text("YOU WIN", "40px Arial", "#f3f3f3");
+          text.x = 250;
+          text.y = 200;
+          text.textBaseline = "alphabetic";
+          stage.addChild(text);
+        }
+      }, 10);
     },
     startGetVoiceSize() {
       this.timer = setTimeout(() => {
