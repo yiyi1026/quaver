@@ -8,6 +8,7 @@ canvas {
   display: block;
   /*background-color: #e6e6e6;*/
   background-color: #f3f3f3;
+  border: none;
 }
 
 .bottom-menu {
@@ -19,6 +20,8 @@ canvas {
   margin-right: auto;
   display: block;
   background-color: #333333;
+  border: none;
+  outline: 0;
 }
 
 .menu {
@@ -27,8 +30,10 @@ canvas {
   padding-right: 0;
   margin-left: auto;
   margin-right: auto;
+  outline: 0;
   /*display: block;*/
   /*new */
+  border: none;
   display: flex;
 }
 
@@ -82,6 +87,7 @@ canvas {
   color: #bbbbbb;
   margin-left: auto;
   margin-right: auto;
+  outline: 0;
 }
 
 
