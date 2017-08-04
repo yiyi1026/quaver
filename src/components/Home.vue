@@ -11,10 +11,10 @@
         <h4>Don't Stop ! Quaver ♪</h4>
       </div>
       <div class='menu'>
-        <span>Please enable the microphone input on your Chrome browser.
+        <h5 class='startMenuTips'>Please enable the microphone input on your Chrome browser.
         <br/>Tips: smaller voice to walk,
         <br/>
-        louder voice to jump.</span>
+        louder voice to jump.</h5>
 </div>
 <div class='menu '>
   <img class='quaver' src='../../static/img/1.png' />
@@ -46,13 +46,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.h4 {
+h4 {
+  padding-top: 30px;
+  font-size: 24px;
+}
+
+h5 {
   font-size: 18px;
 }
 
 .menu {
   text-align: center;
-  padding-top: 20px;
+  margin-top: 20px;
   font-size: 15px;
 }
 

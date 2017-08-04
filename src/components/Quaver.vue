@@ -27,7 +27,9 @@ canvas {
   padding-right: 0;
   margin-left: auto;
   margin-right: auto;
-  display: block;
+  /*display: block;*/
+  /*new */
+  display: flex;
 }
 
 .time {
@@ -48,7 +50,8 @@ canvas {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   border: 0px solid #c2c2c2;
-  display: inline-block;
+  /*display: inline-block;*/
+  justify-content: space-around;
   cursor: pointer;
   color: #333333;
   font-family: Trebuchet MS;
@@ -74,24 +77,24 @@ canvas {
 }
 
 .sensitivity {
+  margin-top: 12px;
   justify-content: space-between;
   color: #bbbbbb;
-  margin-right: 250px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.sensitivity {
-  margin-left: 10%;
-}
+
 
 #sensitivity-control {
+  margin-top: 12px;
+  justify-content: space-around;
   outline: 0;
 }
 
 #sensitivity-control:focus {
   outline: 0;
 }
-
-.backButton {}
 </style>
 
 <template>
@@ -387,7 +390,7 @@ export default {
           console.log('if');
           clearInterval(goInterval);
           let text = new createjs.Text("GAME OVER", "40px Arial", "#f3f3f3");
-          text.x = x + 1050;
+          text.x = x + 1115;
           text.y = 200;
           text.textBaseline = "alphabetic";
           stage.addChild(text);
