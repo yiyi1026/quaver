@@ -382,7 +382,7 @@ export default {
         cnt += 1;
         // console.log(closing.graphics)
         stage.x -= 40;
-        console.log(cnt);
+        // console.log(cnt);
         if (cnt > 20) {
           console.log('if');
           clearInterval(goInterval);

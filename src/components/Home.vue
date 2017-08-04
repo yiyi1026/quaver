@@ -1,25 +1,34 @@
 <template>
 <!-- <div class="home">
     <h1>Home</h1>
+    Please enable the microphone input on your Chrome browser.
+    smaller voice to make the quaver to walk,
+    louder voice to jump.
   </div> -->
 <div>
   <span id="menuFrame">
       <div class='menu'>
-        Don't Stop ! Quaver ♪
-      </div>
-      <div class='menu '>
-        <img class='quaver' src='../../static/img/1.png'/>
+        <h4>Don't Stop ! Quaver ♪</h4>
       </div>
       <div class='menu'>
-        <button class='menuButton' v-on:click='handleClick' name='stage1'>Stage 1</button>
-      </div>
-      <div class='menu'>
-        <button class='menuButton' v-on:click='handleClick' name='stage2'>Stage 2</button>
-      </div>
-      <div class='menu'>
-        <button class='menuButton' v-on:click='handleClick' name='stage3'>Stage 3</button>
-      </div>
-    </span>
+        <span>Please enable the microphone input on your Chrome browser.
+        <br/>Tips: smaller voice to walk,
+        <br/>
+        louder voice to jump.</span>
+</div>
+<div class='menu '>
+  <img class='quaver' src='../../static/img/1.png' />
+</div>
+<div class='menu'>
+  <button class='menuButton' v-on:click='handleClick' name='stage1'>Stage 1</button>
+</div>
+<div class='menu'>
+  <button class='menuButton' v-on:click='handleClick' name='stage2'>Stage 2</button>
+</div>
+<div class='menu'>
+  <button class='menuButton' v-on:click='handleClick' name='stage3'>Stage 3</button>
+</div>
+</span>
 </div>
 </template>
 
@@ -37,9 +46,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.h4 {
+  font-size: 18px;
+}
+
 .menu {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 20px;
+  font-size: 15px;
 }
 
 .quaver {
