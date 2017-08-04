@@ -30,13 +30,13 @@ This app will consist of a single screen with game board, game controls, and nav
 This project will be implemented with the following technologies:
 
 - Vanilla JavaScript for overall structure and game logic,
+- Web Audio API to translate microphone input into voice frequency data.
 - `Vue.js` with `HTML5 Canvas` for DOM manipulation and rendering,
-- Web Audio API to translate microphone input into data.
 - Webpack to bundle and serve up the various scripts.
 
 In addition to the webpack entry file, there will be three scripts involved in this project:
 
-`board.vue`: this script will handle the logic for creating and updating the necessary `Vue.js` elements and rendering them to the DOM.
+`main.vue`: this script will handle the logic for creating and updating the necessary `Vue.js` elements and rendering them to the DOM.
 
 `quaver.vue`: this script will house the constructor and update functions for the `Quaver` object.  The `Quaver` object will contain methods for quaver to walk or jump.
 
