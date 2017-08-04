@@ -1,0 +1,119 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Easel Demo
+  </title>
+  <script src="http://code.createjs.com/easeljs-0.8.2.min.js">
+  </script>
+  <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
+  <script>
+    var stage, rect, quaver, pose;
+
+    function init() {
+      //Create a stage by getting a reference to the canvas
+      stage = new createjs.Stage('myCanvas');
+      //Create a Shape DisplayObject.
+      rect = new createjs.Shape();
+      // rect.graphics.beginFill('333333').drawRect(0, 350, 400, 100);
+      // rect.graphics.beginFill('333333').drawRect(0, 450, 800, 100);
+      pose = 1;
+      quaver = new createjs.Bitmap("./img/" + pose + ".png");
+      quaver.y = 264;
+      quaver.gravity = 2;
+      quaver.velocity = 25;
+      quaver.fallState = false;
+      quaver.jumpState = false;
+      quaver.jumpState = true;
+      //Add Shape instance to stage display list
+      stage.addChild(quaver);
+      stage.addChild(rect);
+
+      createjs.Ticker.addEventListener("tick", tick);
+      createjs.Ticker.setFPS(30);
+      //scroll the entire canvas with translate transform method;
+      // it transforms the context first,
+    }
+
+    function tick() {
+      rect.x -= 5;
+      pose = (pose + 0.4) % 2;
+      quaver.image = new createjs.Bitmap("./img/" + Math.floor(pose + 1) + ".png").image;
+      //   quaver.x = 0;
+      //   // stage.fall();
+      // }
+      // quaver.fallState = true;
+
+
+      game();
+      // if (rect.x < -400) {
+      //   //   rect.x = 500;
+      // }
+      // if (quaver.y = 800) {
+      //   quaver.velocity = 0;
+      // }
+      stage.update();
+    }
+
+    function game() {
+      // if (gameover) {
+      //   gameover();
+      // }
+      if (quaver.fallState) {
+        fall();
+        if (quaver.outState) {
+          quaver.velocity = 0;
+        }
+      }
+
+      if (quaver.jumpState) {
+        jump();
+      }
+
+      // if (walking) {
+      //   walk();
+      // }
+    }
+
+    function fall() {
+      quaver.velocity += 0.29 * quaver.gravity;
+      quaver.y += quaver.velocity;
+    }
+
+    function jump() {
+      quaver.fallState = false;
+      quaver.velocity -= quaver.gravity;
+      if (quaver.velocity < 0) {
+        quaver.velocity = -quaver.velocity;
+        quaver.jumpState = false;
+        quaver.fallState = true;
+      }
+      if (quaver.y < 0) {
+        quaver.jumpState = false;
+        quaver.fallState = true;
+      }
+      quaver.y -= quaver.velocity;
+    }
+
+    var soundID = "bgm";
+
+    function loadSound() {
+      console.log('here');
+      createjs.Sound.registerSound("./bgm", soundID);
+    }
+
+    function playSound() {
+      createjs.Sound.play(soundID);
+    }
+  </script>
+</head>
+
+<body onload="init();loadSound();">
+  <canvas id="myCanvas" width="800" height="500">
+		alternate content
+	</canvas>
+
+</body>
+
+</html> -->
