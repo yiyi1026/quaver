@@ -22,7 +22,7 @@ canvas {
   position: absolute;
   background-color: #333333;
   color: #f3f3f3;
-  width: 120px;
+  width: 135px;
   /*display: block;*/
   margin-left: 59%;
   /*margin-right: 10px;*/
@@ -41,10 +41,12 @@ canvas {
   <canvas id="myCanvas" width="800" height="500">
         alternate content
   </canvas>
-  <div class='sensitivity'>
-    <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
+  <div class='menu'>
+    <div class='sensitivity'>
+      <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
+    </div>
+    <button v-on:click="mute">Mute</button>
   </div>
-  <button v-on:click="mute">Mute</button>
 </div>
 </template>
 
@@ -64,6 +66,7 @@ export default {
         fallState: null,
         walkState: null
       },
+      stageLevel: null,
       flag: null,
       pose: null,
       quaver_width: 58,
@@ -324,7 +327,7 @@ export default {
     this.quaver = new createjs.Bitmap("../../static/img/" + this.pose + ".png");
     this.flag = new createjs.Bitmap("../../static/img/victory.png");
     //Create a Shape DisplayObject.
-    this.rects = StageData.getObstacleData('stage1');
+    this.rects = StageData.getObstacleData(this.stageLevel);
 
     //if it has been set it should stay at the set value????
     this.adjustSensitivity = this.adjustSensitivity.bind(this);
@@ -384,6 +387,8 @@ export default {
 
       }
     }
+
+    this.stageLevel=this.$route.query.s;
   }
 }
 </script>
