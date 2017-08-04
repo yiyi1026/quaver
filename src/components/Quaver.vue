@@ -393,7 +393,6 @@ export default {
         stage.x -= 40;
         // console.log(cnt);
         if (cnt > 20) {
-          console.log('if');
           clearInterval(goInterval);
           let text = new createjs.Text("GAME OVER", "40px Arial", "#f3f3f3");
           text.x = x + 1115;
