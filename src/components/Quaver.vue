@@ -2,9 +2,12 @@
 canvas {
   padding-left: 0;
   padding-right: 0;
+  margin-top: 3%;
   margin-left: auto;
   margin-right: auto;
   display: block;
+  /*background-color: #e6e6e6;*/
+  background-color: #f3f3f3;
 }
 
 .sensitivity {
@@ -14,16 +17,34 @@ canvas {
   margin-right: auto;
   display: block;
 }
+
+.time {
+  position: absolute;
+  background-color: #333333;
+  color: #f3f3f3;
+  width: 120px;
+  /*display: block;*/
+  margin-left: 59%;
+  /*margin-right: 10px;*/
+  padding-left: 10px;
+  margin-top: 1%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 </style>
 
 <template>
 <div id="quaver">
+  <div class='time'>
+    Time: {{this.timeSpend/1000}}
+  </div>
   <canvas id="myCanvas" width="800" height="500">
         alternate content
   </canvas>
   <div class='sensitivity'>
     <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
   </div>
+  <button v-on:click="mute">Mute</button>
 </div>
 </template>
 
@@ -51,6 +72,9 @@ export default {
       voiceSize: 0,
       sensitivity: 1000,
       timer: '',
+      startTime: new Date(),
+      currentTime: new Date(),
+      timeSpend: this.currentTime - this.startTime,
     }
   },
   computed: {
@@ -63,6 +87,9 @@ export default {
   },
   watch: {},
   methods: {
+    mute: function() {
+      createjs.Sound.muted = !createjs.Sound.muted;
+    },
     tick: function(event) {
 
       // quaver.image = new createjs.Bitmap("../../static/img/" + Math.floor(pose + 1) + ".png").image;
@@ -70,6 +97,8 @@ export default {
       //   // stage.fall();
       // }
       // quaver.fallState = true;
+      this.currentTime = new Date();
+      this.timeSpend = this.currentTime - this.startTime;
       this.game();
 
       // if (rect.x < -400) {
