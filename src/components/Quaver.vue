@@ -91,8 +91,7 @@ canvas {
   outline: 0;
 }
 
-.backButton{
-}
+.backButton {}
 </style>
 
 <template>
@@ -108,9 +107,9 @@ canvas {
       <button class='menuButton' v-on:click="mute">Mute</button>
       <span class='sensitivity'>
         <span>Voice Sensitivity</span>
-        <input id="sensitivity-control" type="range" min="1000" max="2000" value="this.sensitivity" step="10"></input>
+      <input id="sensitivity-control" type="range" min="1000" max="2000" value="this.sensitivity" step="10"></input>
       </span>
-      <button class='menuButton' v-on:click='handleBack' >Back</button>
+      <button class='menuButton' v-on:click='handleBack'>Back</button>
     </div>
   </div>
 </div>
@@ -152,6 +151,7 @@ export default {
       startTime: new Date(),
       currentTime: new Date(),
       timeSpend: this.currentTime - this.startTime,
+      gameStop: false,
     }
   },
   computed: {
@@ -199,8 +199,6 @@ export default {
         // console.log("up");
       } else if (e.keyCode == '40') {
         // down arrow
-        console.log('go game over')
-        this.gameOver();
         // console.log("down");
       } else if (e.keyCode == '37') {
         // left arrow
@@ -237,6 +235,9 @@ export default {
 
     game: function() {
       // let rect = this.rects[0];
+      if (this.gameStop) {
+        return;
+      }
       let pose = this.pose;
       let quaver = this.quaver;
 
@@ -358,66 +359,72 @@ export default {
       return false;
     },
     gameOver: function() {
+      this.gameStop = true;
       createjs.Sound.muted = true;
-      
+
       let closing = new createjs.Shape();
 
       let r = new createjs.Shape();
 
-
       let x = this.quaver.x - 100
-      
-      let cnt;
+
+      // console.log('cnt');
       let stage = this.stage;
-      let goInterval = setInterval(function(){ 
-        if(!cnt){
-          cnt = 1;
+      let cnt = 0;
+      let goInterval = setInterval(function() {
+        if (!cnt) {
           // closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
-          closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
+          closing.graphics.beginFill('#333333').drawRect(x + 800, 0, 1000, 500);
           stage.addChild(closing);
         }
         cnt += 1;
-        console.log(closing.graphics)
+        // console.log(closing.graphics)
         stage.x -= 40;
-        if(cnt > 20){
+        console.log(cnt);
+        if (cnt > 20) {
+          console.log('if');
           clearInterval(goInterval);
           let text = new createjs.Text("GAME OVER", "40px Arial", "#f3f3f3");
           text.x = x + 1050;
           text.y = 200;
           text.textBaseline = "alphabetic";
           stage.addChild(text);
+          return;
         }
       }, 50);
     },
     gameWin: function() {
+      this.gameStop = true;
       createjs.Sound.muted = true;
-      
+
       let closing = new createjs.Shape();
 
       let r = new createjs.Shape();
 
-
       let x = this.quaver.x - 100
-      
-      let cnt;
+
+      // console.log('cnt');
       let stage = this.stage;
-      let goInterval = setInterval(function(){ 
-        if(!cnt){
-          cnt = 1;
+      let cnt = 0;
+      let goInterval = setInterval(function() {
+        if (!cnt) {
           // closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
-          closing.graphics.beginFill('#333333').drawRect(x+800, 0, 1000, 500);
+          closing.graphics.beginFill('#333333').drawRect(x + 800, 0, 1000, 500);
           stage.addChild(closing);
         }
         cnt += 1;
-        console.log(closing.graphics)
+        // console.log(closing.graphics)
         stage.x -= 40;
-        if(cnt > 20){
+        console.log(cnt);
+        if (cnt > 20) {
+          console.log('if');
           clearInterval(goInterval);
           let text = new createjs.Text("YOU WIN!", "40px Arial", "#f3f3f3");
           text.x = x + 1050;
           text.y = 200;
           text.textBaseline = "alphabetic";
           stage.addChild(text);
+          return;
         }
       }, 50);
     },
