@@ -23,10 +23,6 @@ canvas {
   background-color: #333333;
   color: #f3f3f3;
   width: 135px;
-<<<<<<< HEAD
-  /*display: block;*/
-=======
->>>>>>> e92fe3219368dc6d29c99fbd6d45f3dc50677dc2
   margin-left: 59%;
   margin-top: 1%;
   margin-bottom: 10px;
@@ -45,29 +41,22 @@ canvas {
   </canvas>
   <div class='menu'>
     <div class='sensitivity'>
-      <input id="sensitivity-control" type="range" min="0" max="5000" value="3000" step="10">Voice Sensitivity</input>
+      <p>Voice Sensitivity</p>
+      Low<input id="sensitivity-control" type="range" min="-3000" max="5000" value="-3000" step="10"></input>High
     </div>
     <button v-on:click="mute">Mute</button>
   </div>
 </div>
 </template>
-<script type="text/javascript">
-let globalMute = false;
-if (globalMute) {
-
-} else {
-  createjs.Sound.on("fileload", this.loadHandler, this);
-  createjs.Sound.registerSound("static/bgm/theme.mp3", "theme");
-
-  function loadHandler(event) {
-    // This is fired for each sound that is registered.
-    var instance = createjs.Sound.play("theme"); // play using id.  Could also use full source path or event.src.
-    instance.on("complete", this.handleComplete, this);
-    instance.volume = 0.2;
-  }
-}
-</script>
 <script>
+// let globalMute = false;
+// if (globalMute) {
+//
+// } else {
+
+
+// }
+
 import * as StageData from '../utils/StageData';
 import AudioAPI from '../API/audioAPI';
 
@@ -110,7 +99,7 @@ export default {
   methods: {
     mute: function() {
       createjs.Sound.muted = !createjs.Sound.muted;
-      globalMute = true;
+      // globalMute = true;
     },
     tick: function(event) {
 
@@ -145,9 +134,6 @@ export default {
         // console.log("down");
       } else if (e.keyCode == '37') {
         // left arrow
-        console.log("left");
-        const voiceSize = AudioAPI.getVoiceSize(this.analyser);
-        console.log(voiceSize);
       } else if (e.keyCode == '39') {
         // right arrow
 
@@ -187,9 +173,6 @@ export default {
       if (this.analyser) {
         this.startGetVoiceSize();
       }
-      // if (gameover) {
-      //   gameover();
-      // }
 
       if (this.isOnGround()) {
         this.quaver.fallState = false;
@@ -305,9 +288,10 @@ export default {
       return false;
     },
     gameOver: function() {
+      this.mute();
       alert("GAME OVER");
       document.location.reload();
-      this.soundMute = true;
+      // this.soundMute = true;
       this.resetPosition();
     },
     gameWin: function() {
@@ -354,9 +338,9 @@ export default {
     let sensitivity = document.getElementById("sensitivity-control");
     let that = this;
     sensitivity.addEventListener("input", function() {
-      const newVal = 6000 - this.value;
+      const newVal = 7000 - this.value;
       console.log(newVal);
-      that.adjustSensitivity(newVal);
+      that.adjustSensitivity(newVal * 1.5);
       console.log(that);
     });
     // console.log(this.sensitivity);
@@ -387,7 +371,7 @@ export default {
     this.stage.addChild(flag);
 
     createjs.Ticker.addEventListener("tick", this.tick);
-    createjs.Ticker.setFPS(24);
+    createjs.Ticker.setFPS(30);
     // console.log(document);
     // let that = this;
     window.onkeydown = this.handleKeyDown.bind(this);
@@ -399,6 +383,7 @@ export default {
   },
   created: function() {
 
+    this.stageLevel = this.$route.query.s;
     if (AudioAPI.isSupport) {
       if (!this.analyser) {
         AudioAPI.start().then(a => {
@@ -406,9 +391,21 @@ export default {
         });
 
       }
+      // console.log(this);
+      // this.loadHandler = this.loadHandler.bind(this)
+      createjs.Sound.on("fileload", loadHandler, this);
+      createjs.Sound.registerSound("../../static/bgm/theme.mp3", "theme");
+      createjs.Sound.muted = false;
+
+      function loadHandler(event) {
+        // console.log("here");
+        // This is fired for each sound that is registered.
+        var instance = createjs.Sound.play("theme"); // play using id.  Could also use full source path or event.src.
+        // instance.on("complete", handleComplete, this);
+        instance.volume = 0.2;
+      }
     }
 
-    this.stageLevel=this.$route.query.s;
   }
 }
 </script>
