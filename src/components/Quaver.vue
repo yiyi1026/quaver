@@ -478,7 +478,7 @@ export default {
       // console.log(this.value);
       const newVal = 3000 - this.value;
       // console.log(newVal);
-      that.adjustSensitivity(newVal);
+      that.adjustSensitivity(newVal * 0.9);
       // console.log(that);
     });
     // console.log(this.sensitivity);
