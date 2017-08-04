@@ -470,8 +470,8 @@ export default {
     var c = document.getElementById("myCanvas");
     this.ctx = c.getContext("2d");
     this.pose = 1;
-    this.quaver = new createjs.Bitmap("./img/" + this.pose + ".png");
-    this.flag = new createjs.Bitmap("./img/victory.png");
+    this.quaver = new createjs.Bitmap("../../static/img/" + this.pose + ".png");
+    this.flag = new createjs.Bitmap("../../static/img/victory.png");
     //Create a Shape DisplayObject.
     this.rects = StageData.getObstacleData(this.stageLevel);
 
