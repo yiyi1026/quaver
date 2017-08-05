@@ -178,7 +178,7 @@ export default {
       // globalMute = true;
     },
     handleBack: function() {
-      window.location = '/index#/'
+      window.location = '#'
     },
     tick: function(event) {
 
