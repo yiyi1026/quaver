@@ -430,7 +430,7 @@ export default {
           console.log('if');
           clearInterval(goInterval);
           let text = new createjs.Text("YOU WIN!", "40px Arial", "#f3f3f3");
-          text.x = x + 1050;
+          text.x = x + 1115;
           text.y = 200;
           text.textBaseline = "alphabetic";
           stage.addChild(text);
