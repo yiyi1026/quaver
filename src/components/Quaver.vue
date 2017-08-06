@@ -55,7 +55,6 @@ canvas {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   border: 0px solid #c2c2c2;
-  /*display: inline-block;*/
   justify-content: space-around;
   cursor: pointer;
   color: #333333;
