@@ -1,6 +1,5 @@
 ## Quaver
-[Duora live][heroku]
-[heroku]: https://yiyi1026.github.io/quaver/
+[Live]: https://yiyi1026.github.io/quaver/
 ### Background
 
 Quaver is a voice control game, inspired by Yasuhati developed by Freem Inc.The user controls an quaver to avoid obstacles with voice. You may want to check the video here [here](https://www.youtube.com/watch?v=Eq5_uVMMN-s) to get a better understanding.
